@@ -56,7 +56,7 @@ namespace Video_Editor.ViewModels
             {
                 return;
             }
-            var media = new Media(libVLC, VideoPath);
+            Media media = new Media(libVLC, VideoPath);
             MediaPlayer.Play(media);
             CurrentTime = 0;
             CurrentPercent = 0;

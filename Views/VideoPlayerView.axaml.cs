@@ -14,8 +14,6 @@ public partial class VideoPlayerView : UserControl
     public VideoPlayerView()
     {
         InitializeComponent();
-        VideoView.Width = 800;
-        VideoView.Height = 450;
     }
 
     public void HandlePlayButton(object sender, RoutedEventArgs e)
@@ -63,7 +61,8 @@ public partial class VideoPlayerView : UserControl
         }
     }
 
-    private void HandleSeekbarPress(object sender, RoutedEventArgs e)
+    // TODO: Make hold seeking pause playback
+    private void HandleSeekbarPress(object? sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
     {
         Debug.WriteLine("Seekbar pressed at: " + SeekbarUser.Value);
         if (DataContext is ViewModels.VideoPlayerViewModel vm)

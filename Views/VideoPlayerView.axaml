@@ -4,27 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:Video_Editor.ViewModels"
 			 xmlns:vlc="clr-namespace:LibVLCSharp.Avalonia;assembly=LibVLCSharp.Avalonia"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="Video_Editor.Views.VideoPlayerView"
 			 x:DataType="vm:VideoPlayerViewModel">
-	<StackPanel>
-		<vlc:VideoView x:Name="VideoView" MediaPlayer="{Binding MediaPlayer}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-		<TextBox Text="{Binding VideoPath}" Width="400" />
-		<Button Click="HandlePlayButton" HorizontalAlignment="Center">Play</Button>
-		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-			<Button Click="HandleJumpBackButton">Jump Back</Button>
-			<Button Click="HandleStopButton">Stop</Button>
-			<Button Click="HandlePlayPauseButton">Play/Pause</Button>
-			<Button Click="HandleJumpForwardButton">Jump Forward</Button>
+	<Grid RowDefinitions="*, Auto">
+		<vlc:VideoView x:Name="VideoView" MediaPlayer="{Binding MediaPlayer}" Grid.Row="0" />
+		<StackPanel Grid.Row="1">
+			<TextBox Text="{Binding VideoPath}" Width="400" />
+			<Button Click="HandlePlayButton" HorizontalAlignment="Center">Play</Button>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<Button Click="HandleJumpBackButton">Jump Back</Button>
+				<Button Click="HandleStopButton">Stop</Button>
+				<Button Click="HandlePlayPauseButton">Play/Pause</Button>
+				<Button Click="HandleJumpForwardButton">Jump Forward</Button>
+			</StackPanel>
+			<Canvas Width="400" Height="50">
+				<Slider	x:Name="SeekbarDisplay" Minimum="0" Maximum="{Binding TotalTime}" Value="{Binding CurrentTime}" Width="400" HorizontalAlignment="Center" />
+				<Slider	x:Name="SeekbarUser" ValueChanged="HandleSeekbarPress" IsSnapToTickEnabled="False" Opacity="0" Minimum="0" Maximum="{Binding TotalTime}" Width="400" HorizontalAlignment="Center">
+					<Slider.Resources>
+						<x:Double x:Key="SliderHorizontalThumbWidth">0</x:Double>
+					</Slider.Resources>
+				</Slider>
+			</Canvas>
+			<TextBlock Text="{Binding CurrentTime}" HorizontalAlignment="Center"/>
 		</StackPanel>
-		<Canvas Width="400" Height="50">
-			<Slider	x:Name="SeekbarDisplay" Minimum="0" Maximum="{Binding TotalTime}" Value="{Binding CurrentTime}" Width="400" HorizontalAlignment="Center" />
-			<Slider	x:Name="SeekbarUser" ValueChanged="HandleSeekbarPress" IsSnapToTickEnabled="False" Opacity="0" Minimum="0" Maximum="{Binding TotalTime}" Width="400" HorizontalAlignment="Center">
-				<Slider.Resources>
-					<x:Double x:Key="SliderHorizontalThumbWidth">0</x:Double>
-				</Slider.Resources>
-			</Slider>
-		</Canvas>
-		<TextBlock Text="{Binding CurrentTime}" HorizontalAlignment="Center"/>
-	</StackPanel>
+	</Grid>
+	
 </UserControl>
