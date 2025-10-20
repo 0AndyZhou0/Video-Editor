@@ -16,8 +16,53 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-	<Grid>
-		<v:VideoPlayerView Content="{Binding VideoPlayer}" />
+	<Grid Name="Window">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" MinHeight="100" />
+            <RowDefinition Height="0" />
+            <RowDefinition Height=".9*" MinHeight="200" />
+        </Grid.RowDefinitions>
+
+        <Grid Name="MediaAndPlayer" Grid.Row="0" MinHeight="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="100" />
+                <ColumnDefinition Width="0" />
+                <ColumnDefinition Width="*" MinWidth="100" />
+            </Grid.ColumnDefinitions>
+
+			<Rectangle Fill="Pink" Grid.Column="0" />
+            <TextBlock Text="Media Library" FontSize="69" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" />
+		    <v:VideoPlayerView Content="{Binding VideoPlayer}" Grid.Column="2" />
+
+            <!-- Between Elements (Border and Grid Adjustment) -->
+            <Border BorderBrush="Black" BorderThickness="2" Grid.Column="0" />
+            <Border BorderBrush="Black" BorderThickness="2" Grid.Column="2" />
+            <GridSplitter Grid.Column="1" Background="Transparent"  />
+        </Grid>
+        <Grid Name="SettingsAndTimeline" Grid.Row="2" MinHeight="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="100" />
+                <ColumnDefinition Width="0" />
+                <ColumnDefinition Width="3*" MinWidth="200" />
+            </Grid.ColumnDefinitions>
+
+			<Rectangle Fill="Gray" Grid.Column="0" />
+            <TextBlock Text="Settings" FontSize="69" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" />
+		    <Rectangle Fill="LIghtGray" Grid.Column="2" />
+            <TextBlock Text="Timeline" FontSize="69" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" />
+            <ScrollViewer Grid.Column="2" AllowAutoHide="False" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Test 1" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" Background="DarkGray" Height="150" Width="1000" />
+                    <TextBlock Text="Test 2" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Gray" Height="150" Width="1000" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Between Elements (Border and Grid Adjustment) -->
+            <Border BorderBrush="Black" BorderThickness="2" Grid.Column="0" />
+            <Border BorderBrush="Black" BorderThickness="2" Grid.Column="2" />
+            <GridSplitter Grid.Column="1" Background="Transparent" />
+        </Grid>
+        <GridSplitter Grid.Row="1"  Background="Transparent" />
 	</Grid>
 
 </Window>
