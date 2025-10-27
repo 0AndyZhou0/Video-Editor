@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
 using CommunityToolkit.Mvvm.ComponentModel;
+using LibVLCSharp.Avalonia;
 using LibVLCSharp.Shared;
 using System;
 using System.Collections.Generic;
@@ -50,13 +51,19 @@ namespace Video_Editor.ViewModels
             };
         }
 
+        public string GetVideoPath()
+        {
+            return VideoPath ?? string.Empty;
+        }
+
         public void Play()
         {
-            if (string.IsNullOrEmpty(VideoPath) || MediaPlayer == null || libVLC == null)
+            string path = GetVideoPath();
+            if (string.IsNullOrEmpty(path) || MediaPlayer == null || libVLC == null)
             {
                 return;
             }
-            Media media = new Media(libVLC, VideoPath);
+            Media media = new Media(libVLC, path);
             MediaPlayer.Play(media);
             CurrentTime = 0;
             CurrentPercent = 0;

@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:Video_Editor.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Video_Editor.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Video_Editor.Views.TimelineView"
+             x:DataType="vm:MainWindowViewModel">
+    <ScrollViewer Name="Timeline" AllowAutoHide="True" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" IsScrollChainingEnabled="False" >
+        <Grid RowDefinitions="Auto, *, *" ColumnDefinitions="*">
+            <!-- Header -->
+            <Canvas Height="50" Grid.Row="0" Grid.Column="0">
+				<Slider	x:Name="SeekbarDisplay" Minimum="0" Maximum="{Binding VideoPlayer.TotalTime}" Value="{Binding VideoPlayer.CurrentTime}" Width="{Binding $parent.Bounds.Width}" HorizontalAlignment="Center" />
+				<Slider	x:Name="SeekbarUser" ValueChanged="HandleSeekbarPress" IsSnapToTickEnabled="False" Opacity="0" Minimum="0" Maximum="{Binding VideoPlayer.TotalTime}" Width="{Binding $parent.Bounds.Width}" HorizontalAlignment="Center">
+					<Slider.Resources>
+						<x:Double x:Key="SliderHorizontalThumbWidth">0</x:Double>
+					</Slider.Resources>
+				</Slider>
+			</Canvas>
+            <!-- Video -->
+			<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                <TextBlock Text="Test 3" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#F0F0F0" Height="{Binding $parent.Bounds.Height}" Width="2000" />
+                <TextBlock Text="Test 4" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#E0E0E0" Height="{Binding $parent.Bounds.Height}" Width="1000" />
+            </StackPanel>
+            <!-- Audio -->
+			<StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+                <TextBlock Text="Test 5" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#D0D0D0" Height="{Binding $parent.Bounds.Height}" Width="1000" />
+                <TextBlock Text="Test 6" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#C0C0C0" Height="{Binding $parent.Bounds.Height}" Width="2000" />
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

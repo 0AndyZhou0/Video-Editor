@@ -32,7 +32,7 @@
 
 			<Rectangle Fill="Pink" Grid.Column="0" />
             <TextBlock Text="Media Library" FontSize="69" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" />
-		    <v:VideoPlayerView Content="{Binding VideoPlayer}" Grid.Column="2" />
+		    <v:VideoPlayerView Grid.Column="2" />
 
             <!-- Between Elements (Border and Grid Adjustment) -->
             <Border BorderBrush="Black" BorderThickness="2" Grid.Column="0" />
@@ -48,14 +48,8 @@
 
 			<Rectangle Fill="Gray" Grid.Column="0" />
             <TextBlock Text="Settings" FontSize="69" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" />
-		    <Rectangle Fill="LIghtGray" Grid.Column="2" />
-            <TextBlock Text="Timeline" FontSize="69" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" />
-            <ScrollViewer Grid.Column="2" AllowAutoHide="False" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Test 1" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" Background="DarkGray" Height="150" Width="1000" />
-                    <TextBlock Text="Test 2" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Gray" Height="150" Width="1000" />
-                </StackPanel>
-            </ScrollViewer>
+		    <Rectangle Fill="LightGray" Grid.Column="2" />
+            <v:TimelineView Grid.Column="2" />
 
             <!-- Between Elements (Border and Grid Adjustment) -->
             <Border BorderBrush="Black" BorderThickness="2" Grid.Column="0" />

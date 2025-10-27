@@ -18,9 +18,9 @@ public partial class VideoPlayerView : UserControl
 
     public void HandlePlayButton(object sender, RoutedEventArgs e)
     {
-        if (DataContext is ViewModels.VideoPlayerViewModel vm)
+        if (DataContext is ViewModels.MainWindowViewModel vm)
         {
-            vm.Play();
+            vm.VideoPlayer.Play();
         }
     }
 
@@ -31,43 +31,42 @@ public partial class VideoPlayerView : UserControl
 
     public void HandlePlayPauseButton(object sender, RoutedEventArgs e)
     {
-        if (DataContext is ViewModels.VideoPlayerViewModel vm)
+        if (DataContext is ViewModels.MainWindowViewModel vm)
         {
-            vm.PlayPause();
+            vm.VideoPlayer.PlayPause();
         }
     }
 
     public void HandleStopButton(object sender, RoutedEventArgs e)
     {
-        if (DataContext is ViewModels.VideoPlayerViewModel vm)
+        if (DataContext is ViewModels.MainWindowViewModel vm)
         {
-            vm.Stop();
+            vm.VideoPlayer.Stop();
         }
     }
 
     public void HandleJumpBackButton(object sender, RoutedEventArgs e)
     {
-        if (DataContext is ViewModels.VideoPlayerViewModel vm)
+        if (DataContext is ViewModels.MainWindowViewModel vm)
         {
-            vm.JumpBack(5000);
+            vm.VideoPlayer.JumpBack(5000);
         }
     }
 
     public void HandleJumpForwardButton(object sender, RoutedEventArgs e)
     {
-        if (DataContext is ViewModels.VideoPlayerViewModel vm)
+        if (DataContext is ViewModels.MainWindowViewModel vm)
         {
-            vm.JumpForward(5000);
+            vm.VideoPlayer.JumpForward(5000);
         }
     }
 
     // TODO: Make hold seeking pause playback
-    private void HandleSeekbarPress(object? sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-    {
-        Debug.WriteLine("Seekbar pressed at: " + SeekbarUser.Value);
-        if (DataContext is ViewModels.VideoPlayerViewModel vm)
-        {
-            vm.JumpTo((long)(SeekbarUser.Value));
-        }
-    }
+    //private void HandleSeekbarPress(object? sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+    //{
+    //    if (DataContext is ViewModels.MainWindowViewModel vm)
+    //    {
+    //        vm.VideoPlayer.JumpTo((long)(SeekbarUser.Value));
+    //    }
+    //}
 }
