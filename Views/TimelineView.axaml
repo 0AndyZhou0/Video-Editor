@@ -19,12 +19,12 @@
 				</Slider>
 			</Canvas>
             <!-- Video -->
-			<StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+			<StackPanel Name="Video" Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
                 <TextBlock Text="Test 3" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#F0F0F0" Height="{Binding $parent.Bounds.Height}" Width="2000" />
                 <TextBlock Text="Test 4" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#E0E0E0" Height="{Binding $parent.Bounds.Height}" Width="1000" />
             </StackPanel>
             <!-- Audio -->
-			<StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+			<StackPanel Name="Audio" Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
                 <TextBlock Text="Test 5" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#D0D0D0" Height="{Binding $parent.Bounds.Height}" Width="1000" />
                 <TextBlock Text="Test 6" FontSize="48" VerticalAlignment="Center" HorizontalAlignment="Center" Background="#C0C0C0" Height="{Binding $parent.Bounds.Height}" Width="2000" />
             </StackPanel>
