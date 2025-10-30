@@ -7,14 +7,14 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="Video_Editor.Views.VideoPlayerView"
 			 x:DataType="vm:MainWindowViewModel">
-	<Grid RowDefinitions="*, Auto">
+	<Grid RowDefinitions="*, Auto" Margin="5, 0">
 		<vlc:VideoView x:Name="VideoView" MediaPlayer="{Binding VideoPlayer.MediaPlayer}" Grid.Row="0" />
 		<StackPanel Grid.Row="1">
-			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5">
+			<!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5">
 				<TextBlock Text="Video Path:" VerticalAlignment="Center" />
 				<TextBox Text="{Binding VideoPlayer.VideoPath}" Width="400" />
 				<Button Click="HandlePlayButton" HorizontalAlignment="Center">Play</Button>
-			</StackPanel>
+			</StackPanel>-->
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 				<Button Click="HandleJumpBackButton">Jump Back</Button>
 				<Button Click="HandleStopButton">Stop</Button>

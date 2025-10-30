@@ -30,9 +30,11 @@
                 <ColumnDefinition Width="*" MinWidth="100" />
             </Grid.ColumnDefinitions>
 
-			<Rectangle Fill="Pink" Grid.Column="0" />
-            <TextBlock Text="Media Library" FontSize="69" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" />
-		    <v:VideoPlayerView Grid.Column="2" />
+            <!-- Media Library -->
+			<v:MediaLibraryView Grid.Column="0" />
+		    
+            <!-- Video Player -->
+            <v:VideoPlayerView Grid.Column="2" />
 
             <!-- Between Elements (Border and Grid Adjustment) -->
             <Border BorderBrush="Black" BorderThickness="2" Grid.Column="0" />
@@ -46,9 +48,12 @@
                 <ColumnDefinition Width="3*" MinWidth="200" />
             </Grid.ColumnDefinitions>
 
+            <!-- Settings Panel -->
 			<Rectangle Fill="Gray" Grid.Column="0" />
             <TextBlock Text="Settings" FontSize="69" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" />
 		    <Rectangle Fill="LightGray" Grid.Column="2" />
+
+            <!-- Timeline View -->
             <v:TimelineView Grid.Column="2" />
 
             <!-- Between Elements (Border and Grid Adjustment) -->

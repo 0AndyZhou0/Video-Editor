@@ -7,6 +7,7 @@ using LibVLCSharp.Avalonia;
 using LibVLCSharp.Shared;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +60,7 @@ namespace Video_Editor.ViewModels
         public void Play()
         {
             string path = GetVideoPath();
+            Debug.WriteLine("Playing video: " + path);
             if (string.IsNullOrEmpty(path) || MediaPlayer == null || libVLC == null)
             {
                 return;

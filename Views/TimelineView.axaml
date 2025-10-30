@@ -11,6 +11,7 @@
         <Grid RowDefinitions="Auto, *, *" ColumnDefinitions="*">
             <!-- Header -->
             <Canvas Height="50" Grid.Row="0" Grid.Column="0">
+                <!-- Make simpler with oneway binding? -->
 				<Slider	x:Name="SeekbarDisplay" Minimum="0" Maximum="{Binding VideoPlayer.TotalTime}" Value="{Binding VideoPlayer.CurrentTime}" Width="{Binding $parent.Bounds.Width}" HorizontalAlignment="Center" />
 				<Slider	x:Name="SeekbarUser" ValueChanged="HandleSeekbarPress" IsSnapToTickEnabled="False" Opacity="0" Minimum="0" Maximum="{Binding VideoPlayer.TotalTime}" Width="{Binding $parent.Bounds.Width}" HorizontalAlignment="Center">
 					<Slider.Resources>

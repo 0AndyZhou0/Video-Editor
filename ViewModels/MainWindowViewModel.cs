@@ -7,10 +7,12 @@ namespace Video_Editor.ViewModels
     public partial class MainWindowViewModel : ViewModelBase
     {
         public ViewModels.VideoPlayerViewModel VideoPlayer { get; }
+        public ViewModels.MediaLibraryViewModel MediaLibrary { get; }
 
         public MainWindowViewModel()
         {
             VideoPlayer = new ViewModels.VideoPlayerViewModel();
+            MediaLibrary = new ViewModels.MediaLibraryViewModel();
         }
     }
 }

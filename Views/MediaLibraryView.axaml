@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Video_Editor.ViewModels"
+		     xmlns:v="using:Video_Editor.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Video_Editor.Views.MediaLibraryView"
+             x:DataType="vm:MainWindowViewModel">
+    <Panel DragDrop.AllowDrop="True">
+        <ListBox 
+        ItemsSource="{Binding MediaLibrary.MediaItemsInLibrary}" 
+        SelectedItem="{Binding MediaLibrary.SelectedMediaItem, Mode=OneWayToSource}"
+        DoubleTapped="HandleDoubleTap" 
+        Background="#6F6F6F" >
+		    <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Rectangle Width="150" Height="150" Margin="5" Fill="LightGray" />
+                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Top" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+    </Panel>
+</UserControl>

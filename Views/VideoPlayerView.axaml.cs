@@ -6,14 +6,21 @@ using LibVLCSharp.Avalonia;
 using LibVLCSharp.Shared;
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Video_Editor.Views;
 
 public partial class VideoPlayerView : UserControl
 {
+    public required ViewModels.MainWindowViewModel vm;
+
     public VideoPlayerView()
     {
         InitializeComponent();
+        if (DataContext is ViewModels.MainWindowViewModel vm) 
+        {
+            this.vm = vm;
+        }
     }
 
     public void HandlePlayButton(object sender, RoutedEventArgs e)
