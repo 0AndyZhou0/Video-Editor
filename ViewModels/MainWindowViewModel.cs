@@ -9,10 +9,13 @@ namespace Video_Editor.ViewModels
         public ViewModels.VideoPlayerViewModel VideoPlayer { get; }
         public ViewModels.MediaLibraryViewModel MediaLibrary { get; }
 
+        public ViewModels.TimelineViewModel Timeline { get; }
+
         public MainWindowViewModel()
         {
             VideoPlayer = new ViewModels.VideoPlayerViewModel();
             MediaLibrary = new ViewModels.MediaLibraryViewModel();
+            Timeline = new ViewModels.TimelineViewModel();
         }
     }
 }

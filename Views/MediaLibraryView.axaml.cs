@@ -6,6 +6,7 @@ using Avalonia.Platform.Storage;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Video_Editor.Views;
 
@@ -21,6 +22,13 @@ public partial class MediaLibraryView : UserControl
 
     public void DragOver(object? sender, DragEventArgs e)
     {
+        var currentPosition = e.GetPosition(this);
+
+        var offsetX = currentPosition.X;
+        var offsetY = currentPosition.Y;
+
+        // Add visual feedback for dragging
+
         if (e.DataTransfer.Items is not null && e.DataTransfer.Items.Count > 0)
         {
             e.DragEffects = DragDropEffects.Copy;
@@ -35,14 +43,9 @@ public partial class MediaLibraryView : UserControl
         ViewModels.MainWindowViewModel vm = DataContext as ViewModels.MainWindowViewModel ?? throw new InvalidOperationException("DataContext is not MainWindowViewModel");
         if (e.DataTransfer.Items is not null)
         {
-            foreach (IDataTransferItem item in e.DataTransfer.Items)
+            foreach (IDataTransferItem item in e.DataTransfer.Items/*.SkipLast(1)*/)
             {
                 Avalonia.Platform.Storage.IStorageItem? file = item.TryGetFile();
-                //IStorageItem filething = e.Data.GetFiles().First();
-                //String path = filething.Path.ToString();
-                //String name = filething.Name;
-                //Debug.WriteLine(name, path);
-                //vm.MediaLibrary.AddMediaItem(name, path);
                 if (file == null)
                 {
                     Debug.WriteLine("Not a file or Format is not available.");
@@ -60,13 +63,21 @@ public partial class MediaLibraryView : UserControl
             if (vm.MediaLibrary.SelectedMediaItem is not null)
             {
                 //Debug.WriteLine("Playing selected media: " + vm.MediaLibrary.SelectedMediaItem.Name);
-                vm.VideoPlayer.VideoPath = vm.MediaLibrary.SelectedMediaItem.Uri?.LocalPath;
-                vm.VideoPlayer.Play();
+                string path = vm.MediaLibrary.SelectedMediaItem.Uri.LocalPath;
+                vm.VideoPlayer.VideoPath = path;
+                vm.VideoPlayer.Play(path);
             }
             else
             {
                 Debug.WriteLine("No media item is selected.");
             }
         }
+    }
+
+    private async void OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        var dragData = new DataTransfer();
+        var result = await DragDrop.DoDragDropAsync(e, dragData, DragDropEffects.Move);
+        Debug.WriteLine($"DragDrop result: {result}");
     }
 }

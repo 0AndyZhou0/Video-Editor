@@ -20,31 +20,21 @@ namespace Video_Editor.ViewModels
 
         public MediaLibraryViewModel()
         {
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo1.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo2.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo3.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo4.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo5.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo6.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo7.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo8.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo9.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo10.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo11.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo12.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo13.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo14.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo15.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo16.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo17.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo18.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo19.mp4"));
-            //MediaItemsInLibrary.Add(new MediaItem("SampleVideo20.mp4"));
+            
         }
 
-        public void AddMediaItem(string name, Uri uri)
+        public MediaItem? AddMediaItem(string name, Uri uri)
         {
-            MediaItemsInLibrary.Add(new MediaItem(name, uri));
+            for (int i = 0; i < MediaItemsInLibrary.Count; i++)
+            {
+                if (MediaItemsInLibrary[i].Uri == uri)
+                {
+                    return null;
+                }
+            }
+            MediaItem newFile = new MediaItem(name, uri);
+            MediaItemsInLibrary.Add(newFile);
+            return newFile;
         }
 
         public void RemoveMediaItem(MediaItem item)
@@ -52,12 +42,16 @@ namespace Video_Editor.ViewModels
             MediaItemsInLibrary.Remove(item);
         }
 
-        internal void AddMediaFromDragItem(IStorageItem item)
+        internal bool AddMediaFromDragItem(IStorageItem item)
         {
             if (item.Path is not null)
             {
-                AddMediaItem(item.Name, item.Path);
+                if (AddMediaItem(item.Name, item.Path) is not null)
+                {
+                    return true;
+                }
             }
+            return false;
         }
     }
 }

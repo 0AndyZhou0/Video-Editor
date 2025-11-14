@@ -7,7 +7,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Video_Editor.Views.MediaLibraryView"
              x:DataType="vm:MainWindowViewModel">
-    <Panel DragDrop.AllowDrop="True">
+    <Panel DragDrop.AllowDrop="True" PointerPressed="OnPointerPressed">
         <ListBox 
         ItemsSource="{Binding MediaLibrary.MediaItemsInLibrary}" 
         SelectedItem="{Binding MediaLibrary.SelectedMediaItem, Mode=OneWayToSource}"
