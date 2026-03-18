@@ -1,23 +1,24 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="using:Video_Editor.Views"
+             xmlns:v="using:Video_Editor.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:Video_Editor.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Video_Editor.Views.TimelineView"
              x:DataType="vm:MainWindowViewModel">
     <ScrollViewer Name="Timeline" AllowAutoHide="True" HorizontalScrollBarVisibility="Visible" DragDrop.AllowDrop="True" PointerWheelChanged="PointerWheelHandler" >
-        <Grid RowDefinitions="Auto, *, *" ColumnDefinitions="Auto">            <!-- Header -->
-            <Canvas Height="50" Grid.Row="0" Grid.Column="0">
+        <Grid RowDefinitions="Auto, *, *" ColumnDefinitions="*">            <!-- Header -->
+            <!-- <Canvas Height="50" Grid.Row="0" Grid.Column="0"> -->
                 <!-- Make simpler with oneway binding? -->
-				<Slider	x:Name="SeekbarDisplay" Minimum="0" Maximum="{Binding VideoPlayer.TotalTime}" Value="{Binding VideoPlayer.CurrentTime}" Width="{Binding $parent.Bounds.Width}" HorizontalAlignment="Center" />
+				<!-- <Slider	x:Name="SeekbarDisplay" Minimum="0" Maximum="{Binding VideoPlayer.TotalTime}" Value="{Binding VideoPlayer.CurrentTime}" Width="{Binding $parent.Bounds.Width}" HorizontalAlignment="Center" />
 				<Slider	x:Name="SeekbarUser" ValueChanged="HandleSeekbarPress" IsSnapToTickEnabled="False" Opacity="0" Minimum="0" Maximum="{Binding VideoPlayer.TotalTime}" Width="{Binding $parent.Bounds.Width}" HorizontalAlignment="Center">
 					<Slider.Resources>
 						<x:Double x:Key="SliderHorizontalThumbWidth">0</x:Double>
 					</Slider.Resources>
 				</Slider>
-			</Canvas>
+			</Canvas> -->
+            <v:SeekbarView Height="50" Grid.Row="0" Grid.Column="0"></v:SeekbarView>
             <!-- Video -->
 			<ListBox ItemsSource="{Binding Timeline.VideoTimeline}" Name="Video" Grid.Row="1" Grid.Column="0">
                 <ListBox.Styles> 

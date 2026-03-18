@@ -13,7 +13,7 @@ namespace Video_Editor.ViewModels
 {
     public partial class MediaLibraryViewModel : ViewModelBase
     {
-        public ObservableCollection<MediaItem> MediaItemsInLibrary { get; } = new ObservableCollection<MediaItem>();
+        public ObservableCollection<MediaItem> MediaItemsInLibrary { get; } = new ObservableCollection<MediaItem>(); // TODO: FIX ALL MediaItems
 
         [ObservableProperty]
         private MediaItem? _SelectedMediaItem;
@@ -32,7 +32,7 @@ namespace Video_Editor.ViewModels
                     return null;
                 }
             }
-            MediaItem newFile = new MediaItem(name, uri);
+            MediaItem newFile = new MediaItem(name, uri, 0.2);
             MediaItemsInLibrary.Add(newFile);
             return newFile;
         }

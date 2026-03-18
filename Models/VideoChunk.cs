@@ -10,17 +10,12 @@ namespace Video_Editor.Models
     public class VideoChunk : MediaItem
     {
         [SetsRequiredMembers]
-        public VideoChunk(string name, Uri uri, long startPosition, long endPosition) : base(name, uri, startPosition, endPosition)
+        public VideoChunk(string name, Uri uri, long startPosition) : base(name, uri, startPosition)
         {
         }
 
         [SetsRequiredMembers]
-        public VideoChunk(string name, Uri uri, long startPosition, long endPosition, long length) : base(name, uri, startPosition, endPosition, length)
-        {
-        }
-
-        [SetsRequiredMembers]
-        public VideoChunk(string name, Uri uri) : base(name, uri)
+        public VideoChunk(string name, Uri uri, double scale) : base(name, uri, scale)
         {
         }
 

@@ -59,7 +59,7 @@ namespace Video_Editor.ViewModels
             return VideoPath ?? string.Empty;
         }
 
-        public string GetVideoPath(MediaItem item)
+        public string GetVideoPath(MediaItem item) // TODO: Fix all MediaItems
         {
             return item.getPath();
         }

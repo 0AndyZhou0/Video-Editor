@@ -8,6 +8,10 @@ using Avalonia.Platform.Storage;
 using Avalonia.Controls.Shapes;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Video_Editor.Models;
+using Avalonia.VisualTree;
+using System.Linq;
+using Avalonia.Controls.Presenters;
 
 namespace Video_Editor.Views;
 
@@ -26,14 +30,20 @@ public partial class TimelineView : UserControl
         AddHandler(DragDrop.DropEvent, DropAsync);
     }
 
+    public ScrollViewer? getScrollViewer()
+    {
+        var scrollViewer = this.FindControl<ScrollViewer>("Timeline");
+        return scrollViewer;
+    }
+
 
     // TODO: Make hold seeking pause playback
     private void HandleSeekbarPress(object? sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
     {
-        //Debug.WriteLine("Seekbar pressed at: " + SeekbarUser.Value);
+        Debug.WriteLine("Seekbar pressed");
         if (DataContext is ViewModels.MainWindowViewModel vm)
         {
-            vm.VideoPlayer.JumpTo((long)(SeekbarUser.Value));
+            // vm.VideoPlayer.JumpTo((long)(SeekbarUser.Value));
         }
     }
 
@@ -55,6 +65,10 @@ public partial class TimelineView : UserControl
 
     public async Task DropAsync(object? sender, DragEventArgs e)
     {
+        var currentPosition = e.GetPosition(this);
+        var offsetX = currentPosition.X;
+        var offsetY = currentPosition.Y;
+        Debug.WriteLine($"Drop Position: {offsetX}, {offsetY}");
         if (DataContext is ViewModels.MainWindowViewModel vm)
         {
             if (e.DataTransfer.Items is not null && e.DataTransfer.Items.Count == 2)
@@ -77,21 +91,47 @@ public partial class TimelineView : UserControl
                 }
 
                 vm.MediaLibrary.AddMediaFromDragItem(file);
-                await AddVideoBlockAsync(file);
+                await AddVideoBlock(file, offsetX);
             }
         }
     }
 
-    public async Task AddVideoBlockAsync(IStorageItem file)
+    public async Task AddVideoBlockAtEnd(IStorageItem file)
     {
         if (DataContext is ViewModels.MainWindowViewModel vm)
         {
-            long duration = await vm.VideoPlayer.GetVideoDurationAsync(file.Path.LocalPath);
-            vm.Timeline.AddVideoChunkScaled(file.Name, file.Path, 0, duration, (long) (duration * _zoomRatio));
-            //Debug.WriteLine(file.Path.LocalPath + " duration: " + duration);
+            VideoChunk videoChunk = vm.Timeline.AddVideoChunk(file.Name, file.Path, _zoomRatio);
             Rectangle rect = new Rectangle
             {
-                Width = duration,
+                Width = videoChunk.Length,
+                Height = 150,
+                Fill = Avalonia.Media.Brushes.Blue
+            };
+            //Video.Children.Add(rect);
+        }
+    }
+
+    public async Task AddVideoBlock(IStorageItem file, double pointerPosition)
+    {
+        if (DataContext is ViewModels.MainWindowViewModel vm)
+        {
+            // long duration = await vm.VideoPlayer.GetVideoDurationAsync(file.Path.LocalPath);
+            // Debug.WriteLine(file.Path.LocalPath + " duration: " + duration);
+            var scrollOffset = 0.0;
+            var scrollViewer = getScrollViewer();
+            if (scrollViewer != null)
+            {
+                scrollOffset = scrollViewer.Offset.X;
+            }
+            long totalDuration = vm.Timeline.GetTotalDurationOfVideoChunks(); // TODO: Use pointer position and add at index instead
+            (int index, long position) = vm.Timeline.GetVideoChunkAtPosition((long)(pointerPosition + scrollOffset));
+            Debug.WriteLine($"Pointer position: {pointerPosition + scrollOffset}, Index: {index}, Position: {position}");
+            VideoChunk videoChunk = vm.Timeline.AddVideoChunk(file.Name, file.Path, _zoomRatio);
+            // VideoChunk videoChunk = vm.Timeline.AddVideoChunkAtIndex(file.Name, file.Path, index);
+            Debug.WriteLine(videoChunk.Length);
+            Rectangle rect = new Rectangle
+            {
+                Width = videoChunk.Length,
                 Height = 150,
                 Fill = Avalonia.Media.Brushes.Blue
             };
@@ -101,10 +141,14 @@ public partial class TimelineView : UserControl
 
     private void PointerWheelHandler(object? sender, PointerWheelEventArgs e)
     {
+        if (sender is ScrollViewer sv)
+        {
+            Debug.WriteLine(sv.Offset);
+        }
         var shift_pressed = e.KeyModifiers.HasFlag(KeyModifiers.Shift);
         var vertical_change = e.Delta.Y;
-        //Debug.WriteLine("Shift pressed: " + shift_pressed);
-        //Debug.WriteLine("Wheel changed: " + change.Y);
+        // Debug.WriteLine("Shift pressed: " + shift_pressed);
+        // Debug.WriteLine("Wheel changed: " + vertical_change);
         if (shift_pressed || vertical_change == 0)
         {
             return;
@@ -123,6 +167,6 @@ public partial class TimelineView : UserControl
             vm.Timeline.ZoomRatio = _zoomRatio;
             vm.Timeline.OnZoomChanged();
         }
-        Debug.WriteLine("Zoom Ratio: " + _zoomRatio);
+        // Debug.WriteLine("Zoom Ratio: " + _zoomRatio);
     }
 }
