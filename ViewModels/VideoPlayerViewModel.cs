@@ -89,12 +89,12 @@ namespace Video_Editor.ViewModels
             {
                 return;
             }
-            string path = item.getPath();
-            if (string.IsNullOrEmpty(path))
+            VideoPath = item.getPath();
+            if (string.IsNullOrEmpty(VideoPath))
             {
                 return;
             }
-            Media media = new Media(LibVLC, path);
+            Media media = new Media(LibVLC, VideoPath);
             MediaPlayer.Play(media);
             CurrentTime = 0;
             CurrentPercent = 0;
@@ -107,6 +107,7 @@ namespace Video_Editor.ViewModels
             {
                 return;
             }
+            VideoPath = path;
             Media media = new Media(LibVLC, path);
             MediaPlayer.Play(media);
             CurrentTime = 0;
@@ -129,9 +130,24 @@ namespace Video_Editor.ViewModels
             media.Dispose();
         }
 
+        public bool IsPlaying()
+        {
+            return MediaPlayer.IsPlaying;
+        }
+
         public void PlayPause()
         {
             MediaPlayer.Pause();
+        }
+
+        public void Pause()
+        {
+            MediaPlayer.SetPause(true);
+        }
+
+        public void UnPause()
+        {
+            MediaPlayer.SetPause(false);
         }
 
         public void Stop()
@@ -142,6 +158,7 @@ namespace Video_Editor.ViewModels
         public void JumpBack(long ms)
         {
             MediaPlayer.Time -= ms;
+            CurrentTime = MediaPlayer.Time;
         }
 
         public void JumpForward(long ms)
@@ -152,7 +169,8 @@ namespace Video_Editor.ViewModels
 
         public void JumpTo(long ms)
         {
-            MediaPlayer.Time += ms - MediaPlayer.Time;
+            MediaPlayer.Time = ms;
+            CurrentTime = MediaPlayer.Time;
         }
     }
 }
